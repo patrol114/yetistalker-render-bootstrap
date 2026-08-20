@@ -31,14 +31,15 @@ if [[ "$actual_fingerprint" != "$EXPECTED_GITHUB_ED25519" ]]; then
 fi
 
 rm -rf -- "$APP_DIR"
-GIT_SSH_COMMAND="ssh -i $key_file -o IdentitiesOnly=yes -o UserKnownHostsFile=$known_hosts -o StrictHostKeyChecking=yes" \
-  git clone --filter=blob:none --no-checkout "$REPO_SSH" "$APP_DIR"
+export GIT_SSH_COMMAND="ssh -i $key_file -o IdentitiesOnly=yes -o UserKnownHostsFile=$known_hosts -o StrictHostKeyChecking=yes"
+git clone --filter=blob:none --no-checkout "$REPO_SSH" "$APP_DIR"
 
 git -C "$APP_DIR" checkout --detach "$COMMIT"
 if [[ "$(git -C "$APP_DIR" rev-parse HEAD)" != "$COMMIT" ]]; then
   printf 'BŁĄD: pobrano inny commit niż oczekiwany.\n' >&2
   exit 1
 fi
+unset GIT_SSH_COMMAND
 
 # Historia i dane uwierzytelniające nie są potrzebne w obrazie uruchomieniowym.
 rm -rf -- "$APP_DIR/.git"
