@@ -17,6 +17,10 @@ services:
         value: "1"
       - key: YETI_PROBE_BACKGROUND
         value: "1"
+      - key: YETI_PROBE_WORKERS
+        value: "16"
+      - key: YETI_PROBE_PER_HOST_LIMIT
+        value: "8"
       - key: YETI_SECRET
         generateValue: true
       - key: SUPABASE_URL
