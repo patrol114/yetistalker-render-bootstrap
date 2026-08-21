@@ -21,8 +21,20 @@ services:
         value: "16"
       - key: YETI_PROBE_PER_HOST_LIMIT
         value: "8"
+      - key: YETI_PROBE_CACHE_ENABLED
+        value: "1"
+      - key: YETI_PROBE_CACHE_TTL_S
+        value: "300"
+      - key: YETI_WEBTV_BASE_PATH
+        value: "/webtv"
       - key: YETI_SECRET
         generateValue: true
+      - key: YETI_PLAYLIST_PATH
+        sync: false
+      - key: WEB_MAC_FAILOVER_ENABLED
+        sync: false
+      - key: YETI_FALLBACK_MACS
+        sync: false
       - key: SUPABASE_URL
         sync: false
       - key: YETI_SUPABASE_INGEST_URL
