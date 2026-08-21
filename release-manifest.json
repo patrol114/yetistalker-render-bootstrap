@@ -10,7 +10,7 @@
   "start_command": "bash bootstrap-start.sh",
   "validation": {
     "pytest_passed": 618,
-    "focused_tests_passed": 87,
+    "focused_tests_passed": 112,
     "python_compile": "pass",
     "shell_syntax": "pass",
     "yaml_validation": "pass",
