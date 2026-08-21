@@ -8,6 +8,34 @@ readonly COMMIT="${YETI_GITHUB_COMMIT:?Brak YETI_GITHUB_COMMIT}"
 readonly KEY_B64="${YETI_GITHUB_DEPLOY_KEY_B64:?Brak YETI_GITHUB_DEPLOY_KEY_B64}"
 readonly EXPECTED_GITHUB_ED25519="SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU"
 
+# Manifest jest kontrolą spójności wydania, a nie źródłem sekretów.  Nie
+# zastępujemy nim YETI_GITHUB_COMMIT, ponieważ immutable pin musi być jawnie
+# ustawiony w Render.  Odmawiamy jednak budowy, gdy manifest i env wskazują
+# różne wersje — inaczej bootstrap może po cichu uruchomić stary kod.
+if [[ -f release-manifest.json ]]; then
+  manifest_commit="$(python3 - <<'PY'
+import json
+from pathlib import Path
+
+try:
+    value = json.loads(Path("release-manifest.json").read_text())
+except Exception:
+    raise SystemExit(2)
+
+commit = value.get("application_commit", "")
+print(commit if isinstance(commit, str) else "")
+PY
+  )" || {
+    printf '%s\n' 'BŁĄD: nie można odczytać application_commit z release-manifest.json.' >&2
+    exit 1
+  }
+  if [[ -n "$manifest_commit" && "$manifest_commit" != "$COMMIT" ]]; then
+    printf 'BŁĄD: YETI_GITHUB_COMMIT nie zgadza się z release-manifest.json (%s != %s).\n' \
+      "$COMMIT" "$manifest_commit" >&2
+    exit 1
+  fi
+fi
+
 tmp_dir="$(mktemp -d)"
 key_file="$tmp_dir/deploy_key"
 known_hosts="$tmp_dir/known_hosts"

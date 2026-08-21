@@ -1,0 +1,45 @@
+services:
+  - type: web
+    name: yetitv
+    runtime: python
+    plan: free
+    region: oregon
+    autoDeploy: false
+    buildCommand: bash bootstrap-build.sh
+    startCommand: bash bootstrap-start.sh
+    healthCheckPath: /webtv/api/health
+    envVars:
+      - key: YETI_GITHUB_COMMIT
+        sync: false
+      - key: YETI_GITHUB_DEPLOY_KEY_B64
+        sync: false
+      - key: YETI_FAST_START
+        value: "1"
+      - key: YETI_PROBE_BACKGROUND
+        value: "1"
+      - key: YETI_PROBE_WORKERS
+        value: "16"
+      - key: YETI_PROBE_PER_HOST_LIMIT
+        value: "8"
+      - key: YETI_PROBE_CACHE_ENABLED
+        value: "1"
+      - key: YETI_PROBE_CACHE_TTL_S
+        value: "300"
+      - key: YETI_WEBTV_BASE_PATH
+        value: "/webtv"
+      - key: YETI_SECRET
+        generateValue: true
+      - key: YETI_PLAYLIST_PATH
+        sync: false
+      - key: WEB_MAC_FAILOVER_ENABLED
+        sync: false
+      - key: YETI_FALLBACK_MACS
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: YETI_SUPABASE_INGEST_URL
+        sync: false
+      - key: YETI_INGEST_TOKEN
+        sync: false
+      - key: YETI_INGEST_TOKEN_SHA256
+        sync: false

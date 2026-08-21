@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "status": "release",
+  "application_repository": "patrol114/yetistalker",
+  "application_branch": "main",
+  "application_commit": "bf7200d25945fde3ae066ecb3e9f2ff3f8419261",
+  "health_check_path": "/webtv/api/health",
+  "blueprint_path": "render.yaml",
+  "build_command": "bash bootstrap-build.sh",
+  "start_command": "bash bootstrap-start.sh",
+  "validation": {
+    "pytest_passed": 614,
+    "focused_tests_passed": 82,
+    "python_compile": "pass",
+    "shell_syntax": "pass",
+    "yaml_validation": "pass",
+    "javascript_syntax": "pass",
+    "mcp_context_gateway": "render_health_pass_unauthorized_401",
+    "security_review": "local_checks_passed_supabase_e2e_pending",
+    "supabase_e2e": "pending"
+  },
+  "required_non_secret_env": {
+    "YETI_FAST_START": "1",
+    "YETI_PROBE_BACKGROUND": "1"
+  },
+  "required_secret_names": [
+    "YETI_GITHUB_DEPLOY_KEY_B64"
+  ],
+  "optional_secret_names": [
+    "YETI_INGEST_TOKEN"
+  ],
+  "context_gateway": {
+    "status": "candidate_separate_service",
+    "application_repository": "patrol114/yetistalker",
+    "application_branch": "main",
+    "application_commit": "bf7200d25945fde3ae066ecb3e9f2ff3f8419261",
+    "blueprint_path": "yetistalker/deploy/render-chatgpt-mcp.yaml.example",
+    "health_check_path": "/healthz",
+    "mcp_path": "/mcp/",
+    "openapi_path": "yetistalker/tools/mcp/yetitv_context_openapi.yaml",
+    "required_secret_names": [
+      "YETITV_CONTEXT_MCP_TOKEN"
+    ],
+    "forbidden_secret_names": [
+      "SUPABASE_SERVICE_ROLE_KEY",
+      "YETI_INGEST_TOKEN",
+      "YETI_INGEST_TOKEN_SHA256"
+    ]
+  },
+  "forbidden_render_env": [
+    "SUPABASE_SERVICE_ROLE_KEY"
+  ]
+}
