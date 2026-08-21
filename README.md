@@ -40,3 +40,32 @@ Weryfikacja po deployu:
 Rollback aplikacyjny nie wymaga zmiany bootstrapu: przywróć poprzednią wartość
 `YETI_GITHUB_COMMIT` i uruchom nowy deploy. Doraźnie można również ustawić
 `YETI_FAST_START=0`.
+
+## Render Free i cold start
+
+Plan Free usypia usługę po okresie bez ruchu. Nie należy dodawać sztucznego
+pingowania ani trzymać procesu aktywnego kosztem limitu; trzeba rozróżniać
+czas wybudzenia infrastruktury Render od czasu gotowości aplikacji.
+Fast-start skraca tylko tę drugą część: proces binduje `$PORT` na
+`0.0.0.0`, wystawia healthcheck, a probe playlisty wykonuje asynchronicznie.
+
+Po zmianie release pinu sprawdź kolejno:
+
+```text
+HTTP /webtv/api/health = 200
+probe_state = warming lub ready
+publiczne /webtv/ = 200
+po zakończeniu probe: channel_key zaczyna się od ch_
+```
+
+System plików usługi Free jest efemeryczny, dlatego cache operacyjny i stan
+probe powinny być traktowane jako opcjonalne lokalnie, a trwały stan należy
+utrzymywać w Supabase. Awaria Supabase nie może blokować health ani playera.
+
+## Bezpieczna aktualizacja release pinu
+
+Endpoint Render do aktualizacji zmiennych środowiskowych zastępuje cały
+zestaw zmiennych. Przed zapisem trzeba więc pobrać istniejący zestaw, zmienić
+wyłącznie `YETI_GITHUB_COMMIT`, zachować sekrety poza logami i wykonać osobny
+deploy. Klucz Render powinien pochodzić z lokalnego środowiska
+(`RENDER_API_KEY`), nigdy z repozytorium, promptu ani historii shell.
