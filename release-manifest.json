@@ -3,7 +3,7 @@
   "status": "candidate",
   "application_repository": "patrol114/yetistalker",
   "application_branch": "codex/yetitv-fast-start-supabase-20260821",
-  "application_commit": "de9623e630acb0ff95c8bc05b39d19bf3ab9ac54",
+  "application_commit": "2d24581bec4fbe75957dfa96aaa3ce60342a0103",
   "health_check_path": "/webtv/api/health",
   "build_command": "bash bootstrap-build.sh",
   "start_command": "bash bootstrap-start.sh",
