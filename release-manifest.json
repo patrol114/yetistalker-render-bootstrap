@@ -3,7 +3,7 @@
   "status": "candidate",
   "application_repository": "patrol114/yetistalker",
   "application_branch": "codex/yetitv-fast-start-supabase-20260821",
-  "application_commit": "2d24581bec4fbe75957dfa96aaa3ce60342a0103",
+  "application_commit": "9d58b0390c56ff9965fac09d0144f51b305b2ba9",
   "health_check_path": "/webtv/api/health",
   "build_command": "bash bootstrap-build.sh",
   "start_command": "bash bootstrap-start.sh",
@@ -14,6 +14,7 @@
     "shell_syntax": "pass",
     "yaml_validation": "pass",
     "javascript_syntax": "pass",
+    "mcp_context_gateway": "local_contract_passed_render_deploy_pending",
     "security_review": "local_checks_passed_supabase_e2e_pending",
     "supabase_e2e": "pending"
   },
