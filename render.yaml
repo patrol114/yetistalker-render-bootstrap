@@ -23,6 +23,7 @@ services:
         sync: false
       - key: YETI_SUPABASE_INGEST_URL
         sync: false
+      - key: YETI_INGEST_TOKEN
+        sync: false
       - key: YETI_INGEST_TOKEN_SHA256
         sync: false
-
