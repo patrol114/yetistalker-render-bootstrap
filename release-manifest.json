@@ -3,7 +3,7 @@
   "status": "candidate",
   "application_repository": "patrol114/yetistalker",
   "application_branch": "codex/ui-runtime-feedback",
-  "application_commit": "726ef2c86bfdbb98488e8ccfc87855cddf6947fd",
+  "application_commit": "726ef2c8644c9c53f31de4eceb8b43c6c7e9dd8b",
   "health_check_path": "/webtv/api/health",
   "blueprint_path": "render.yaml",
   "build_command": "bash bootstrap-build.sh",
