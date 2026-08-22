@@ -9,7 +9,8 @@
   "build_command": "bash bootstrap-build.sh",
   "start_command": "bash bootstrap-start.sh",
   "validation": {
-    "pytest_passed": 622,
+    "pytest_passed": null,
+    "pytest_status": "not_completed_external_network_test_after_201",
     "focused_tests_passed": 116,
     "python_compile": "pass",
     "shell_syntax": "pass",
